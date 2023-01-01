@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, useTheme, Button } from "@@mui/material";
-import AddIcon from "@mui/material/Add";
+import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import useNavigate from "react-router-dom";
-import shades from "../theme";
+import {useNavigate} from "react-router-dom";
+import {shades} from "../theme";
 import { addToCart, decreaseCount, increaseCount } from "../state";
 
 const Item = ({ item, width }) => {
@@ -16,16 +16,9 @@ const Item = ({ item, width }) => {
     palette: { neutral },
   } = useTheme();
 
-  const { category, price, name, image } = item.attributes;
-  const {
-    data: {
-      attributes: {
-        formats: {
-          medium: { url },
-        },
-      },
-    },
-  } = image;
+  const { category, price, name } = item.attributes;
+  const image = item?.attributes?.image?.data?.attributes?.url 
+  
 
   return (
     <Box width={width}>
@@ -35,15 +28,15 @@ const Item = ({ item, width }) => {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          src={`http://localhost:1377${url}`}
+          src={`http://localhost:1337${image}`}
           alt={item.name}
           width="300px"
-          height="400px"
+          height="300px"
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
         <Box
-          display={isHovered ? "blocked" : "none"}
+          display={isHovered ? "block" : "none"}
           position="absolute"
           bottom="10%"
           left="0"
@@ -55,7 +48,8 @@ const Item = ({ item, width }) => {
             <Box
               display="flex"
               alignItems="center"
-              background={shades.neutral[100]}
+              backgroundColor={shades.neutral[100]}
+              borderRadius="3px"
             >
               <IconButton
                 onClick={() => setCount(Math.max(count -1, 1))}
@@ -93,6 +87,6 @@ const Item = ({ item, width }) => {
       </Box>
     </Box>
   );
-};
+};  
 
 export default Item;
