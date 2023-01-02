@@ -48,9 +48,7 @@ const ItemDetails = () => {
   useEffect(() => {
     getItem();
     getItems();
-  }, [itemId]);
-
-  console.log("item", item);
+  }, [itemId]); 
 
   return (
     <Box width="80%" m="80px auto">
